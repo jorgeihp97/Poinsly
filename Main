@@ -1,1 +1,106 @@
 //Main program
+from sly import Lexer, Parser
+
+
+class PoinLexer(Lexer):
+    tokens = { NAME, NUMBER, ADD, SUB, MUL, DIV, LPAREN, RPAREN, }
+    ignore = ' \t'
+    literals = { '=', '+', '-', '*', '/', '(', ')', ',' }
+
+    # Tokens
+    NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
+    ADD = r'\+'
+    SUB = r'-'
+    MUL = r'\*'
+    DIV = r'/'
+    LPAREN = r'\('
+    RPAREN = r'\)'
+
+    @_(r'\d+')
+    def NUMBER(self, t):
+        t.value = int(t.value)
+        return t
+
+
+    @_(r'\n+')
+    def newline(self, t):
+        self.lineno += t.value.count('\n')
+
+    def error(self, t):
+        print("Illegal character '%s'" % t.value[0])
+        self.index += 1
+
+class PoinParser(Parser):
+    debugfile = 'Pparser.txt'
+    tokens = PoinLexer.tokens
+
+    precedence = (
+        ('left', 'ADD', 'SUB'),
+        ('left', 'MUL', 'DIV'),
+        ('right', 'UMINUS'),
+        )
+
+    def __init__(self):
+        self.names = { }
+
+    @_('NAME "=" number')
+    def statement(self, p):
+        self.names[p.NAME] = p.number
+
+    @_('number')
+    def statement(self, p):
+        print(p.number)
+
+    @_('number ADD number')
+    def number(self, p):
+        return p.number0 + p.number1
+
+    @_('number SUB number')
+    def number(self, p):
+        return p.number0 - p.number1
+
+    @_('number MUL number')
+    def number(self, p):
+        return p.number0 * p.number1
+
+    @_('number DIV number')
+    def number(self, p):
+        return p.number0 / p.number1
+
+    @_('SUB number %prec UMINUS')
+    def number(self, p):
+        return -p.number
+
+    @_('LPAREN number RPAREN')
+    def number(self, p):
+        return p.number
+   #Intermediate Code v
+    @_('LPAREN number "," number RPAREN "," LPAREN number "," number RPAREN') 
+    def number(self, p):
+        a = (p.number3 - p.number1) / (p.number2 - p.number0)
+        b = p.number1 - (a * p.number0)
+        return a,b
+    #Intermediate Code ^
+    @_('NUMBER')
+    def number(self, p):
+        return p.NUMBER
+
+    @_('NAME')
+    def number(self, p):
+        try:
+            return self.names[p.NAME]
+        except LookupError:
+            print("Undefined name '%s'" % p.NAME)
+            return 0
+
+if __name__ == '__main__':
+    lexer = PoinLexer()
+    parser = PoinParser()
+    print('Poinsly Language\n')
+    while True:
+        try:
+            text = input('--> ')
+        except EOFError:
+            break
+        if text:
+            parser.parse(lexer.tokenize(text))
