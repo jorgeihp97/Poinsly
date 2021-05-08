@@ -1,26 +1,21 @@
-#Main program
 from sly import Lexer, Parser
-
+import cmath
 
 class PoinLexer(Lexer):
-    tokens = { NAME, NUMBER, ADD, SUB, MUL, DIV, LPAREN, RPAREN, }
+    tokens = { NUMBER, ADD, MUL, LPAREN, RPAREN, TOKEN_X }
     ignore = ' \t'
-    literals = { '=', '+', '-', '*', '/', '(', ')', ',' }
 
     # Tokens
-    NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
     ADD = r'\+'
-    SUB = r'-'
     MUL = r'\*'
-    DIV = r'/'
     LPAREN = r'\('
     RPAREN = r'\)'
+    TOKEN_X = r'[xX]'
 
     @_(r'\d+')
     def NUMBER(self, t):
         t.value = int(t.value)
         return t
-
 
     @_(r'\n+')
     def newline(self, t):
@@ -35,63 +30,50 @@ class PoinParser(Parser):
     tokens = PoinLexer.tokens
 
     precedence = (
-        ('left', 'ADD', 'SUB'),
-        ('left', 'MUL', 'DIV'),
-        ('right', 'UMINUS'),
+        ('left', 'TOKEN_X', 'ADD'),
+        ('left', 'MUL'),
         )
 
     def __init__(self):
         self.names = { }
 
-    @_('NAME "=" number')
-    def statement(self, p):
-        self.names[p.NAME] = p.number
-
     @_('number')
     def statement(self, p):
         print(p.number)
-
-    @_('number ADD number')
-    def number(self, p):
-        return p.number0 + p.number1
-
-    @_('number SUB number')
-    def number(self, p):
-        return p.number0 - p.number1
-
-    @_('number MUL number')
-    def number(self, p):
-        return p.number0 * p.number1
-
-    @_('number DIV number')
-    def number(self, p):
-        return p.number0 / p.number1
-
-    @_('SUB number %prec UMINUS')
-    def number(self, p):
-        return -p.number
-
-    @_('LPAREN number RPAREN')
-    def number(self, p):
-        return p.number
+    
    #Intermediate Code v
     @_('LPAREN number "," number RPAREN "," LPAREN number "," number RPAREN') 
     def number(self, p):
         a = (p.number3 - p.number1) / (p.number2 - p.number0)
         b = p.number1 - (a * p.number0)
         return a,b
+
+    @_('linear_term')
+    def number(self, p):
+        return p.linear_term
+
+    @_('quadratic_term')
+    def number(self, p):
+        return p.quadratic_term
+
+    @_('number TOKEN_X')
+    def linear_term(self, p):
+        return p.number
+
+    @_('number TOKEN_X MUL MUL "2"')
+    def quadratic_term(self, p):
+        return p.number
+    
+    @_('quadratic_term ADD linear_term ADD number') 
+    def number(self, p):
+        c = (p.linear_term ** 2) - (4 * p.quadratic_term * p.number0)
+        a = (-p.linear_term - cmath.sqrt(c))/(2*p.quadratic_term)
+        b = (-p.linear_term - cmath.sqrt(c))/(2*p.quadratic_term)
+        return a , b
     #Intermediate Code ^
     @_('NUMBER')
     def number(self, p):
         return p.NUMBER
-
-    @_('NAME')
-    def number(self, p):
-        try:
-            return self.names[p.NAME]
-        except LookupError:
-            print("Undefined name '%s'" % p.NAME)
-            return 0
 
 if __name__ == '__main__':
     lexer = PoinLexer()
