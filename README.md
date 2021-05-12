@@ -2,7 +2,6 @@
 Programming Language to help solve Quadratic equations.
 
 --------------------------------------------------------
-v Explanation video v
+Explanation video 
 https://youtu.be/XQJEUbpsRwc
-^                   ^
 --------------------------------------------------------
