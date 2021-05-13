@@ -13,7 +13,7 @@ class PoinLexer(Lexer):
     EXP = r'\^'
     TOKEN_X = r'[xX]'
 
-    @_(r'\d+')
+    @_(r'-?\d+')
     def NUMBER(self, t):
         t.value = int(t.value)
         return t
@@ -35,9 +35,6 @@ class PoinParser(Parser):
         ('left', 'EXP'),
         )
 
-    def __init__(self):
-        self.names = { }
-    
     @_('linear_term')
     def number(self, p):
         return p.linear_term
