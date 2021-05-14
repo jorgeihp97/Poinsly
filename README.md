@@ -1,6 +1,5 @@
 # Poinsly
 
-#Description
 Poinsly is a programming Language to help solve Linear and Quadratic equations.
   - Poinsly uses linear and quadratic equations to finds its roots and it also graphs the equation.
   - The main technologies used in this programming language are SLY, cmath and matplotlib.
