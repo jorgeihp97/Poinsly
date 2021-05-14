@@ -1,16 +1,17 @@
 # Poinsly Overview
 
 ### Description:
-Poinsly is a programming Language made in Windows to help solve Linear and Quadratic equations.
+Poinsly is a programming Language made in Windows and using Python to help solve Linear and Quadratic equations.
   - Poinsly uses linear (`2x+24`) and quadratic (`1x^2+-5x+4`) equations to finds its roots, it also graphs the equation and prints it in a separate window.
 
 ### Technology/Modules:
 The main technologies and modules used in this programming language are:
   * Python 3.6 and higher *Required*
-   * SLY
-   * cmath
-   * numpy
-   * matplotlib  
+  * (optional: Anaconda)
+    * SLY
+    * cmath
+    * numpy
+    * matplotlib  
 
 ### Challenges and future implementations:
   - The most challenging part while creating the program was creating a functional equation. It took a bit of time to implement the tokens that recieves positive and negative numbers.
