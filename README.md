@@ -1,5 +1,4 @@
-# Title
-Poinsly
+# Poinsly
 
 #Description
 Poinsly is a programming Language to help solve Linear and Quadratic equations.
