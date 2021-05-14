@@ -1,7 +1,7 @@
 # Poinsly Overview
 
 ### Description:
-Poinsly is a programming Language to help solve Linear and Quadratic equations.
+Poinsly is a programming Language made in Windows to help solve Linear and Quadratic equations.
   - Poinsly uses linear (`2x+24`) and quadratic (`1x^2+-5x+4`) equations to finds its roots, it also graphs the equation and prints it in a separate window.
 
 ### Technology/Modules:
