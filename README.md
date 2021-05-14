@@ -19,7 +19,7 @@ The main technologies and modules used in this programming language are:
 
 ### Installation:
 After downloading `Poinsly.py` and Python, 
-For VScode, enter this to create a virtual environment 
+For VScode, enter this in the terminal to create a virtual environment 
 ``` python -m venv C:\Directories\venv ``` (replace directories with the folders Poinsly.py is in)
 after you do that use 
 ``` pip install Library ``` (replace Library with any of the 4 modules written here)
