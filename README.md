@@ -1,23 +1,39 @@
-# Poinsly
+# Poinsly Overview
 
+### Description:
 Poinsly is a programming Language to help solve Linear and Quadratic equations.
-  - Poinsly uses linear and quadratic equations to finds its roots and it also graphs the equation.
-  - The main technologies used in this programming language are SLY, cmath and matplotlib.
+  - Poinsly uses linear `2x+24` and quadratic `1x^2+-5x+4` equations to finds its roots, it also graphs the equation and print it in a separate window.
+
+### Technology/Modules:
+The main technologies and modules used in this programming language are:
+  * Python 3.6 and higher *Required*
+   * SLY
+   * cmath
+   * numpy
+   * matplotlib  
+
+### Challenges and future implementations:
   - The most challenging part while creating the program was creating a functional equation. It took a bit of time to implement the tokens that recieves positive and negative numbers.
   - Future implementations will be accepting higher degree polinomials and graphing them. Polinomials with the power of 3 or more.
-  - Poinsly can be installed using anaconda and VScode. Using a virtual machine in vscode you can call anaconda to make use if the language.
-  - In VScode you can run the program and directly input an equation. 
+
+### Installation:
+After downloading `Poinsly.py` and Python, 
+For VScode, enter this to create a virtual environment 
+``` python -m venv C:\Directories\venv ``` (replace directories with the folders Poinsly.py is in)
+after you do that use 
+``` pip install Library ``` (replace Library with any of the 4 modules written here)
+to install SLY, cmath, numpy and matplotlib 
 
 
+### After installation:
+
+After all of the installation is complete, you run the code through the terminal and then enter whichever quadratic or linear equation like the ones mentioned previously, anything different will grant differing results and errors. Once you do that you get the result and the corresponding graph should appear in a separate window, likely in the taskbar.
 
 
 --------------------------------------------------------
-Explanation video 
-https://youtu.be/XQJEUbpsRwc
+[Explanation Video](https://youtu.be/XQJEUbpsRwc)
 --------------------------------------------------------
-Anaconda Link
-https://www.anaconda.com/products/individual
+[Anaconda](https://www.anaconda.com/products/individual)
 --------------------------------------------------------
-SLY Documentation Link:
-https://sly.readthedocs.io/en/latest/index.html
+[SLY Documentation](https://sly.readthedocs.io/en/latest/index.html)
 --------------------------------------------------------
